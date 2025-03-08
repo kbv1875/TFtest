@@ -23,17 +23,17 @@ jobs:
 
     - name: Install Azure CLI
       run: |
-          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+        curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
     
-    - name: Azure Login
+    - name: Azure Login (User-based)
       uses: azure/login@v1
       with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+        # No creds provided, this triggers interactive login (User-based)
+        enable_AzureCLI: true
 
     - name: Show Azure Account
       run: |
-          az account show
-        
+        az account show
 
     - name: Install dependencies
       run: |
@@ -42,8 +42,3 @@ jobs:
     - name: Run Terraform Plan
       run: |
         terraform plan
-      env:
-        ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-        ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-        ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
