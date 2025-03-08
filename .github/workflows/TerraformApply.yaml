@@ -20,6 +20,20 @@ jobs:
       with:
         terraform_version: 1.4.5  # Specify the Terraform version you want to use
 
+    - name: Azure login
+      uses: azure/login@v2
+      with:
+          client-id: "e13ebc52-bd47-4927-a5d9-722eb7465292"
+          tenant-id: "4b1732d9-fa44-47bc-ae15-1fac2dca85c6"
+          subscription-id: "c57e05a2-b253-4113-8870-0bb21d04023c"
+
+    - name: Azure CLI script
+      uses: azure/cli@v2
+      with:
+          azcliversion: latest
+          inlineScript: |
+            az account show
+    
     - name: Install dependencies
       run: |
         terraform init
