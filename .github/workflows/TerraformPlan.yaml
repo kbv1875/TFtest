@@ -28,7 +28,7 @@ jobs:
     
     - name: Azure Login (User-based)
       run: |
-        az login --tenant ${{ secrets.AZURE_TENANT_ID }} --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        az login --tenant ${{ secrets.AZURE_TENANT_ID }} 
 
     - name: Show Azure Account
       run: |
