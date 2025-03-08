@@ -21,14 +21,6 @@ jobs:
       with:
         terraform_version: 1.4.5  # Specify the Terraform version you want to use
 
-    - name: Cache Terraform providers
-      uses: actions/cache@v2
-      with:
-        path: ~/.terraform.d/plugin-cache
-        key: ${{ runner.os }}-terraform-${{ hashFiles('**/*.tf') }}
-        restore-keys: |
-          ${{ runner.os }}-terraform-
-
     - name: Install dependencies
       run: |
         terraform init
