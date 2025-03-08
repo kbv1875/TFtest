@@ -2,42 +2,32 @@ name: Terraform Apply
 
 on:
   workflow_run:
-    workflows: ["Terraform Plan"]  # Trigger this workflow when 'Terraform Plan' workflow completes
+    workflows: ["Terraform Plan 2"]  # Trigger this workflow when 'Terraform Plan' workflow completes
     types:
       - completed  # Ensure it runs only after 'Terraform Plan' has completed
 
 jobs:
   terraform:
     runs-on: ubuntu-latest
-    environment: account-prod  # Specifies the environment where the job will run
+    env:
+      TF_VAR_cloudflare_api_token: "${{ secrets.CLOUDFLARE_API_TOKEN}}"
+
 
     steps:
     - name: Checkout the code
       uses: actions/checkout@v3
 
-    - name: Set up Terraform
-      uses: hashicorp/setup-terraform@v2
-      with:
-        terraform_version: 1.4.5  # Specify the Terraform version you want to use
+    - uses: hashicorp/setup-terraform@v2
 
-    - name: Install Azure CLI
-      run: |
-        curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-        az --version
-    
-    - name: Azure Login (User-based)
-      run: |
-        az login --tenant ${{ secrets.AZURE_TENANT_ID }} 
+    - run: terraform version
 
-    - name: Show Azure Account
-      run: |
-        az account show
-    
-    - name: Install dependencies
-      run: |
-        terraform init
+    - run: terraform init -backend-config="access_key=${{ secrets.TERRAFORM_STATE_STORAGE_KEY}}"
 
-    - name: Run Terraform Apply
-      run: |
-        terraform apply -auto-approve  # Automatically approve the changes
+    #- name: Check terraform format
+      #working-directory: modules/r2_bucket
+      #run: terraform fmt -recursive -check -diff
+
+    - name: Terraform Apply
+      id: plan
+      run: terraform plan
       
