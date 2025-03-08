@@ -29,6 +29,6 @@ jobs:
       #run: terraform fmt -recursive -check -diff
 
     - name: Terraform Apply
-      id: plan
-      run: terraform plan
+      id: apply
+      run: terraform apply -auto-approve
       
