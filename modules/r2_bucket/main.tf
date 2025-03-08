@@ -9,3 +9,9 @@ resource "cloudflare_r2_bucket" "example_r2_bucket2" {
   name = "tf-bucket2"
   location = var.r2_location
 }
+
+resource "cloudflare_r2_bucket" "example_r2_bucket3" {
+  account_id = var.cloudflare_account_id
+  name = "tf-kbv-bucket"
+  location = var.r2_location
+}
