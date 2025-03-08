@@ -22,16 +22,16 @@ jobs:
 
     - name: Install Azure CLI
       run: |
-          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+        curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+        az --version
     
-    - name: Azure Login
-      uses: azure/login@v1
-      with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Azure Login (User-based)
+      run: |
+        az login --tenant ${{ secrets.AZURE_TENANT_ID }} 
 
     - name: Show Azure Account
       run: |
-          az account show
+        az account show
     
     - name: Install dependencies
       run: |
@@ -40,8 +40,4 @@ jobs:
     - name: Run Terraform Apply
       run: |
         terraform apply -auto-approve  # Automatically approve the changes
-      env:
-        ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-        ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-        ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      
