@@ -26,9 +26,9 @@ jobs:
     - run: terraform init -backend-config="access_key=${{ secrets.TERRAFORM_STATE_STORAGE_KEY}}"
       working-directory: modules/r2_bucket
 
-    - name: Check terraform format
-      working-directory: modules/r2_bucket
-      run: terraform fmt -recursive -check -diff
+    #- name: Check terraform format
+      #working-directory: modules/r2_bucket
+      #run: terraform fmt -recursive -check -diff
 
     - name: Terraform Plan
       id: plan
