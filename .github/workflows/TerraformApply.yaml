@@ -40,6 +40,8 @@ jobs:
     - name: Run Terraform Apply
       run: |
         terraform apply -auto-approve  # Automatically approve the changes
-      # env:
-        #TF_VAR_some_variable: ${{ secrets.TF_VAR_some_variable }}  # Add any sensitive variables here
-        # You can also pass other sensitive credentials using GitHub secrets
+      env:
+        ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+        ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
