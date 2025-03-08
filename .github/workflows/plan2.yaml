@@ -1,0 +1,34 @@
+name: Terraform Plan
+
+on:
+  push:
+    branches:
+      - main   # Trigger on push to the 'main' branch
+  pull_request:
+    branches:
+      - main   # Trigger on pull request to the 'main' branch
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    env: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+    steps:
+    - name: Checkout the code
+      uses: actions/checkout@v3
+
+    - uses: hashicorp/setup-terraform@v2
+
+    - run: terraform version
+
+    - run: terraform init -backend-config="access_key=${{ secrets.TERRAFORM_STATE_STORAGE_KEY}}"
+      working-directory: modules/r2_bucket
+
+    - name: Check terraform format
+      working-directory: modules/r2_bucket
+      run: terraform fmt -recursive -check -diff
+
+    - name: Terraform Plan
+      id: plan
+      working-directory: modules/r2_bucket
+      run: terraform plann 
