@@ -33,4 +33,4 @@ jobs:
     - name: Terraform Plan
       id: plan
       working-directory: modules/r2_bucket
-      run: terraform plann 
+      run: terraform plan
