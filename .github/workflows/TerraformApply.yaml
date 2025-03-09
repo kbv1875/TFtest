@@ -2,7 +2,7 @@ name: Terraform Apply
 
 on:
   workflow_run:
-    workflows: ["Terraform Plan 2"]  # Trigger this workflow when 'Terraform Plan' workflow completes
+    workflows: ["Terraform Plan"]  # Trigger this workflow when 'Terraform Plan' workflow completes
     types:
       - completed  # Ensure it runs only after 'Terraform Plan' has completed
 
