@@ -23,6 +23,7 @@ jobs:
     - run: terraform version
 
     - run: terraform init -backend-config="access_key=${{ secrets.TERRAFORM_STATE_STORAGE_KEY}}"
+      working-directory: modules/account
 
     #- name: Check terraform format
       #working-directory: modules/r2_bucket
@@ -30,5 +31,6 @@ jobs:
 
     - name: Terraform Apply
       id: apply
+      working-directory: modules/account
       run: terraform apply -auto-approve
       

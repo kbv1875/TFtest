@@ -3,10 +3,10 @@ name: Terraform Plan
 on:
   push:
     branches:
-      - x   # Trigger on push to the 'main' branch
+      - main   # Trigger on push to the 'main' branch
   pull_request:
     branches:
-      - x   # Trigger on pull request to the 'main' branch
+      - main   # Trigger on pull request to the 'main' branch
 
 jobs:
   terraform:
@@ -35,9 +35,12 @@ jobs:
         az account show
 
     - name: Install dependencies
+      working-directory: modules/account
       run: |
-        terraform init
+        terraform init -backend-config="access_key=${{ secrets.TERRAFORM_STATE_STORAGE_KEY}}"
+      
 
     - name: Run Terraform Plan
+      working-directory: modules/account
       run: |
         terraform plan
