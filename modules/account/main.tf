@@ -5,10 +5,5 @@ module "r2_bucket" {
   r2_location = var.r2_location
 }
 
-module "pages" {
-  source = "./pages"
-  cloudflare_api_token = var.cloudflare_api_token
-  cloudflare_account_id = var.cloudflare_account_id
-  
-}
+
   
