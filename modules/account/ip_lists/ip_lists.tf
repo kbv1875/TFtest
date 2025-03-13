@@ -12,7 +12,7 @@ resource "cloudflare_list" "friendly_list" {
   }
   item {
     value {
-      ip = "103.149.159.57"
+      ip = "103.149.159.58"
     }
     comment = "again my home ip"
   }
