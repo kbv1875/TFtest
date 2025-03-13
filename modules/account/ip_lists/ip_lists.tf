@@ -1,7 +1,7 @@
 resource "cloudflare_list" "friendly_list" {
   account_id = var.cloudflare_account_id
   kind = "ip"
-  name = "friendly-ips"
+  name = "friendly_ips"
   description = "my friendly ips"
 
   item {
